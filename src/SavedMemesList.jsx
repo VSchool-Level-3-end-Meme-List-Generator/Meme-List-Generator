@@ -1,16 +1,9 @@
 import { useState } from 'react'
 import React from 'react'
 
-export default function SavedMemesList({meme, deleteFunc, editFunc}){
+export default function SavedMemesList({meme, deleteFunc, editFunc, edit, setEdit}){
     
-    const [edit, setEdit] = React.useState({
-        topText: meme.topText,
-        bottomText: meme.bottomText,
-        randomImage: meme.randomImage,
-        memeId: meme.memeId
-    })
 
-    
 
 
     return (

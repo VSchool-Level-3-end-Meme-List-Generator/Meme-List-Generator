@@ -56,6 +56,7 @@ const savedMemesList = memeArray.map((meme) => {
       key={meme.memeId}
       meme={meme}
       deleteFunc={() => deleteFunc(meme.memeId)}
+      editFunc={() => editFunc(meme.memeId)}
     />
   );
 });
@@ -63,6 +64,13 @@ const savedMemesList = memeArray.map((meme) => {
  function deleteFunc(memeId) {
     setMemeArray(prevMemes => prevMemes.filter(meme => meme.memeId !== memeId))
  }
+
+ const [edit, setEdit] = React.useState({
+  topText: meme.topText,
+  bottomText: meme.bottomText,
+  randomImage: meme.randomImage,
+  memeId: meme.memeId
+})
 
  function editFunc(memeId){
     setMemeArray(prevMemes => prevMemes.map(meme => meme.memeId !== memeId ? meme : edit))
