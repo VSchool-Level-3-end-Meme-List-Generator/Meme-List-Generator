@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import React from 'react'
+import SavedMemesList from './SavedMemesList'
 
 function App() {
   
@@ -35,17 +36,37 @@ function handleChange(event) {
     }))
 }
 
-
 const [memeArray, setMemeArray] = useState([])
-const savedMeme = memeArray.map(savedMeme => {
-    const {memeUrl, topText, bottomText} = savedMeme
-    return (
-        <>
-            
-        </>
-    )
-})
 
+function saveMeme() {
+  const memeId = Date.now()
+  setMemeArray((prevState) => {
+    return (
+    [...prevState,
+    {...meme, memeId:memeId}
+    ])
+  })
+}
+
+
+
+const savedMemesList = memeArray.map((meme) => {
+  return (
+    <SavedMemesList
+      key={meme.memeId}
+      meme={meme}
+      deleteFunc={() => deleteFunc(meme.memeId)}
+    />
+  );
+});
+
+ function deleteFunc(memeId) {
+    setMemeArray(prevMemes => prevMemes.filter(meme => meme.memeId !== memeId))
+ }
+
+ function editFunc(memeId){
+    setMemeArray(prevMemes => prevMemes.map(meme => meme.memeId !== memeId ? meme : edit))
+ }
 
 
 
@@ -80,7 +101,10 @@ const savedMeme = memeArray.map(savedMeme => {
           <img src={meme.randomImage} className="memeImage" />
           <h2 className="meme--text top">{meme.topText}</h2>
           <h2 className="meme--text bottom">{meme.bottomText}</h2>
+          <br></br>
+          <button onClick={saveMeme}>Save Meme</button>
       </div>
+      {savedMemesList}
 </main>
   )
 }
